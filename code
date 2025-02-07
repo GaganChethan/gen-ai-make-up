@@ -1,0 +1,34 @@
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+export default function MakeupAI() {
+  const [preference, setPreference] = useState("");
+  const [recommendation, setRecommendation] = useState("");
+
+  const getRecommendation = async () => {
+    // Simulating an AI response - Replace with actual API call
+    const recommendations = {
+      natural: "Try a light BB cream, nude lipstick, and soft brown eyeshadow.",
+      glam: "Go for a full coverage foundation, bold red lips, and dramatic eyeliner.",
+      edgy: "Experiment with dark smoky eyes, deep matte lipstick, and sharp contouring."
+    };
+    
+    setRecommendation(recommendations[preference] || "Please choose a style.");
+  };
+
+  return (
+    <div className="min-h-screen bg-pink-100 text-gray-900 p-8 text-center">
+      <h1 className="text-4xl font-bold mb-6">AI Makeup Advisor</h1>
+      <p className="mb-4">Choose your preferred makeup style:</p>
+      <div className="flex justify-center gap-4 mb-6">
+        {['natural', 'glam', 'edgy'].map((style) => (
+          <Button key={style} onClick={() => setPreference(style)} className={`px-4 py-2 ${preference === style ? 'bg-pink-500 text-white' : 'bg-white'}`}>
+            {style.charAt(0).toUpperCase() + style.slice(1)}
+          </Button>
+        ))}
+      </div>
+      <Button onClick={getRecommendation} className="bg-purple-500 text-white px-6 py-2">Get Recommendation</Button>
+      {recommendation && <p className="mt-6 text-xl font-semibold">{recommendation}</p>}
+    </div>
+  );
+}
